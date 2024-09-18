@@ -1,33 +1,27 @@
-import { TextInput, View, StyleSheet } from "react-native";
-import Colors from "@/utils/Colors/colors";
-import { GlassesIcon, Search } from "lucide-react-native";
+import Colors from '@/utils/Colors/colors';
+import { Search } from 'lucide-react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
-const SearchBar = () => {
-	return (
-		<View style={styles.search_container}>
-			<Search color={Colors.white} />
-			<TextInput
-				placeholder="Buscar"
-				placeholderTextColor={Colors.white}
-				style={styles.input}
-			/>
-		</View>
-	);
-};
+const SearchBar = () => (
+    <View style={styles.search_container}>
+        <Search color={Colors.white} />
+        <TextInput placeholder="Buscar" placeholderTextColor={Colors.white} style={styles.input} />
+    </View>
+);
 
 const styles = StyleSheet.create({
-	search_container: {
-		flexDirection: "row",
-		gap: 8,
-		borderRadius: 100,
-		width: "60%",
-		paddingHorizontal: 8,
-		paddingVertical: 4,
-		backgroundColor: Colors.lightBlue,
-	},
-	input: {
-		paddingHorizontal: 8,
-		color: Colors.white,
-	},
+    input: {
+        color: Colors.white,
+        paddingHorizontal: 8,
+    },
+    search_container: {
+        backgroundColor: Colors.lightBlue,
+        borderRadius: 100,
+        flexDirection: 'row',
+        gap: 8,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        width: '60%',
+    },
 });
 export default SearchBar;
