@@ -2,7 +2,7 @@ import { Colors } from '@/utils/Colors/colors'
 import { headings, importFonts } from '@/utils/Text/texts'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useRouter } from 'expo-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Image, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 
 const Login = () => {

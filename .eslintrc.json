@@ -1,0 +1,62 @@
+{
+	"env": {
+		"browser": true,
+		"es6": true,
+		"react-native/react-native": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react-native/all",
+		"prettier",
+		"plugin:prettier/recommended"
+	],
+	"plugins": ["react", "@typescript-eslint", "prettier", "unused-imports", "react-native"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true,
+			"tsx": true
+		},
+		"ecmaVersion": 2021,
+		"sourceType": "module"
+	},
+	"rules": {
+		"no-inline-comments": "error",
+		"eqeqeq": "off",
+		"prefer-const": "error",
+		"prefer-arrow-callback": "error",
+		"arrow-body-style": ["error", "as-needed"],
+		"consistent-return": 0,
+		"dot-notation": "error",
+		"no-multi-spaces": "error",
+		"no-multi-str": "error",
+		"no-return-assign": "error",
+		"no-useless-return": "error",
+		"no-var": "error",
+		"prefer-template": "error",
+		"react/prop-types": "off",
+		"react/react-in-jsx-scope": 0,
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-unused-vars": "off",
+		"no-unused-vars": "off",
+		"unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{
+				"vars": "all",
+				"varsIgnorePattern": "^_",
+				"args": "after-used",
+				"argsIgnorePattern": "^_"
+			}
+		]
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	}
+}
