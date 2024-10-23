@@ -1,31 +1,11 @@
 import { Colors } from '@/utils/Colors/colors'
 import { headings, importFonts } from '@/utils/Text/texts'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useRouter } from 'expo-router'
-import { useEffect, useState } from 'react'
-import { Image, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const Login = () => {
-	const fontsLoaded = importFonts()
+	const _fontsLoaded = importFonts()
 	const router = useRouter()
-
-	const [username, setUsername] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
-
-	const onSubmit = async () => {
-		if (username == 'admin' && password == 'admin') {
-			try {
-				await AsyncStorage.setItem('token', '1234')
-				router.push('/home')
-				// await AsyncStorage.removeItem('token');
-			} catch (error) {
-				console.log(error)
-			}
-		}
-	}
-
-	router.push('/login/signIn')
-	const redirectToSignIn = () => {}
 
 	return (
 		<SafeAreaView style={styles.loginScreen}>
@@ -35,16 +15,16 @@ const Login = () => {
 			<View style={styles.content}>
 				<Text style={styles.title}>Manage & Track Your Money in One App</Text>
 				<Text style={styles.subtitle}>
-					Take control of your financial future with our all-in-one finance management app. Designed to
-					simplify and streamline your money matters
+					Take control of your financial future with our all-in-one finance management app. Designed to simplify and
+					streamline your money matters
 				</Text>
 				<View style={styles.buttonsContainer}>
-					<Pressable onPress={redirectToSignIn} style={[styles.button, styles.whiteButton]}>
+					<TouchableOpacity onPress={() => router.replace('/login/SignIn')} style={[styles.button, styles.whiteButton]}>
 						<Text style={[styles.buttonText, styles.whiteButtonText]}>Sign in</Text>
-					</Pressable>
-					<Pressable style={styles.button}>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.button}>
 						<Text style={styles.buttonText}>Sign up</Text>
-					</Pressable>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</SafeAreaView>

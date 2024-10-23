@@ -1,8 +1,8 @@
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet, View } from 'react-native'
 
-import Header from "@/components/Home/Header";
-import Wallet from "@/components/Home/Wallet";
-import { Colors } from "@/utils/Colors/colors";
+import Header from '@/components/HomePage/Header'
+import Wallet from '@/components/HomePage/Wallet'
+import { Colors } from '@/utils/Colors/colors'
 
 const Home = () => (
 	<SafeAreaView>
@@ -19,7 +19,7 @@ const Home = () => (
 			</Wallet.Root>
 		</View>
 	</SafeAreaView>
-);
+)
 
 const styles = StyleSheet.create({
 	header: {
@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
 		padding: 20,
 		paddingBottom: 0,
 	},
-});
+})
 
-export default Home;
+export default Home

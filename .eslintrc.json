@@ -38,6 +38,7 @@
 		"prefer-template": "error",
 		"react/prop-types": "off",
 		"react/react-in-jsx-scope": 0,
+		"react-native/no-inline-styles": 0,
 		"@typescript-eslint/explicit-module-boundary-types": "off",
 		"@typescript-eslint/no-non-null-asserted-optional-chain": "off",
 		"@typescript-eslint/no-explicit-any": "off",
