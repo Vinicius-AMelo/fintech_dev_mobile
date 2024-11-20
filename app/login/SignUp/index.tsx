@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-unused-styles */
 import AuthAction from '@/components/AuthPage/AuthAction'
 import AuthHeader from '@/components/AuthPage/AuthHeader'
 import AuthInput from '@/components/AuthPage/AuthInput'
@@ -10,7 +11,7 @@ import { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const signIn = () => {
+const signUp = () => {
 	const router = useRouter()
 
 	// const [rememberMe, setRememberMe] = useState(false)
@@ -40,7 +41,7 @@ const signIn = () => {
 
 	const { data: status, refetch: refetchUser } = useQuery({ queryKey: ['user'], queryFn: fetchUser, enabled: false })
 
-	const handleLogin = () => {
+	const handleSignUp = () => {
 		router.push('/home')
 	}
 
@@ -55,7 +56,7 @@ const signIn = () => {
 	return (
 		<SafeAreaView style={styles.screenContainer}>
 			<View style={styles.inputContainer}>
-				<AuthHeader title="Welcome to FundFlex" subtitle="Enter your Email & Password to Sign in" />
+				<AuthHeader title="Welcome to FundFlex" subtitle="Enter your Email & Password to Sign Up" />
 				<AuthInput
 					icon={<Mail size={24} color={Colors.primary[400]} />}
 					value={username}
@@ -70,20 +71,28 @@ const signIn = () => {
 					value={password}
 				/>
 
+				<AuthInput
+					icon={<Lock size={24} color={Colors.primary[400]} />}
+					password
+					setValue={setPassword}
+					placeholder="Confirm password"
+					value={password}
+				/>
+
 				<View style={styles.inputOptions}>
-					<View style={styles.checkboxContainer}>
+					{/* <View style={styles.checkboxContainer}>
 						<View style={styles.checkbox}></View>
 						<Text>Remember me</Text>
 					</View>
 					<Link style={styles.link} href={'/login/RecoverPassword'}>
 						<Text>Forgot Password?</Text>
-					</Link>
+					</Link> */}
 				</View>
 
 				<View style={styles.signInContainer}>
-					<AuthAction text="Sign in" handleLogin={handleLogin} />
+					<AuthAction text="Sign Up" handleLogin={handleSignUp} />
 					<Text style={styles.signUpLabel}>
-						Don&apos;t Have an Account?
+						Already Have an Account?
 						<Link href={'/login/RecoverPassword'}>
 							<Text style={styles.signUpLinkText}> Sign Up</Text>
 						</Link>
@@ -130,4 +139,4 @@ const styles = StyleSheet.create({
 		color: Colors.secondary.blue[600],
 	},
 })
-export default signIn
+export default signUp

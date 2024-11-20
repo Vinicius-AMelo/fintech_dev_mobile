@@ -7,6 +7,8 @@ const Login = () => {
 	const _fontsLoaded = importFonts()
 	const router = useRouter()
 
+	// router.push('/login/OTPValidation')
+
 	return (
 		<SafeAreaView style={styles.loginScreen}>
 			<View style={styles.imageContainer}>
@@ -19,10 +21,10 @@ const Login = () => {
 					streamline your money matters
 				</Text>
 				<View style={styles.buttonsContainer}>
-					<TouchableOpacity onPress={() => router.replace('/login/SignIn')} style={[styles.button, styles.whiteButton]}>
+					<TouchableOpacity onPress={() => router.push('/login/SignIn')} style={[styles.button, styles.whiteButton]}>
 						<Text style={[styles.buttonText, styles.whiteButtonText]}>Sign in</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.button}>
+					<TouchableOpacity onPress={() => router.push('/login/SignUp')} style={styles.button}>
 						<Text style={styles.buttonText}>Sign up</Text>
 					</TouchableOpacity>
 				</View>
