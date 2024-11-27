@@ -2,9 +2,10 @@
 import AuthAction from '@/components/AuthPage/AuthAction'
 import AuthHeader from '@/components/AuthPage/AuthHeader'
 import AuthInput from '@/components/AuthPage/AuthInput'
+import api from '@/utils/api/api'
 import { Colors } from '@/utils/Colors/colors'
 import { useQuery } from '@tanstack/react-query'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 import { Link, useRouter } from 'expo-router'
 import { Lock, Mail } from 'lucide-react-native'
 import { useState } from 'react'
@@ -20,18 +21,10 @@ const signIn = () => {
 
 	const fetchUser = async () => {
 		try {
-			const response = await axios.post(
-				'http://localhost:3000/api/login',
-				{
-					email: username,
-					password,
-				},
-				{
-					headers: {
-						'ngrok-skip-browser-warning': 'true',
-					},
-				}
-			)
+			const response = await api.post('/api/login', {
+				email: username,
+				password,
+			})
 			return response.status
 		} catch (e) {
 			const axiosError = e as AxiosError

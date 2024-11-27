@@ -3,7 +3,8 @@ import AuthHeader from '@/components/AuthPage/AuthHeader'
 import AuthInput from '@/components/AuthPage/AuthInput'
 import { useAuth } from '@/services/AuthContext'
 import { Colors } from '@/utils/Colors/colors'
-import axios, { AxiosError } from 'axios'
+import api from '@/utils/api/api'
+import { AxiosError } from 'axios'
 import { useRouter } from 'expo-router'
 import { Mail } from 'lucide-react-native'
 import { useState } from 'react'
@@ -18,7 +19,7 @@ const RecoverPassword = () => {
 
 	const handleSendOtp = async () => {
 		try {
-			const response = await axios.post('http://localhost:3000/api/users/send-otp', { email: emailInput })
+			const response = await api.post('/api/users/send-otp', { email: emailInput })
 			if (response.status === 200) {
 				setEmail(emailInput)
 				router.push('/login/OTPValidation')

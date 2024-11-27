@@ -32,7 +32,7 @@ const OTPValidation = () => {
 	const handleConfirmOtp = async () => {
 		// const otpCode = Object.values(otp).join('')
 		// try {
-		// 	const response = await axios.post('http://localhost:3000/api/users/verify-otp', { otp: otpCode })
+		// 	const response = await api.post('http://localhost:3000/api/users/verify-otp', { otp: otpCode })
 		// 	if (response.status === 200) {
 		// 		router.push('/login/ResetPassword')
 		// 	}
