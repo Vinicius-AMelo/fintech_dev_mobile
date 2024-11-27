@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // Criando uma instância personalizada do Axios
 const api = axios.create({
-	baseURL: process.env.API_ROUTE,
+	baseURL: 'serverfintechmobile-production.up.railway.app',
 })
 
 export default api
