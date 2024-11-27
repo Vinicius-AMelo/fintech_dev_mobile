@@ -2,6 +2,7 @@
 import AuthAction from '@/components/AuthPage/AuthAction'
 import AuthHeader from '@/components/AuthPage/AuthHeader'
 import { Colors } from '@/utils/Colors/colors'
+import { useRouter } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -10,9 +11,10 @@ type OTPType = {
 	[key: string]: string
 }
 
-const resetPassword = () => {
-	const [rememberMe, setRememberMe] = useState(false)
+const OTPValidation = () => {
+	const router = useRouter()
 	const [otp, setOtp] = useState<OTPType>({ first: '', second: '', third: '', fourth: '' })
+	const [error, setError] = useState<string>('')
 
 	const inputs = useRef<{ [key: string]: TextInput | null }>({})
 
@@ -27,10 +29,26 @@ const resetPassword = () => {
 		})
 	}, [otp])
 
+	const handleConfirmOtp = async () => {
+		// const otpCode = Object.values(otp).join('')
+		// try {
+		// 	const response = await axios.post('http://localhost:3000/api/users/verify-otp', { otp: otpCode })
+		// 	if (response.status === 200) {
+		// 		router.push('/login/ResetPassword')
+		// 	}
+		// } catch (e) {
+		// 	const axiosError = e as AxiosError
+		// 	setError(axiosError.response?.data.error || 'Invalid OTP')
+		// }
+
+		router.push('/login/ResetPassword')
+	}
+
 	return (
 		<SafeAreaView style={styles.screenContainer}>
 			<View style={styles.inputContainer}>
 				<AuthHeader title="Email verification" subtitle="Email Verification has been sent to your Email" />
+				{error ? <Text style={styles.errorText}>{error}</Text> : null}
 				<View style={styles.otpContainer}>
 					{Object.keys(otp).map((key: keyof OTPType, index) => (
 						<TextInput
@@ -46,11 +64,11 @@ const resetPassword = () => {
 					))}
 				</View>
 				<View style={styles.signInContainer}>
-					<AuthAction text="Confirm OTP" path={'/login/ResetPassword'} />
+					<AuthAction text="Confirm OTP" handleLogin={handleConfirmOtp} />
 				</View>
 				<View style={styles.resendLabel}>
 					<Text>Did not receive it?</Text>
-					<Pressable onPress={() => console.log('y')}>
+					<Pressable onPress={handleConfirmOtp}>
 						<Text style={styles.resendLinkText}> Resend Code</Text>
 					</Pressable>
 				</View>
@@ -60,6 +78,11 @@ const resetPassword = () => {
 }
 
 const styles = StyleSheet.create({
+	errorText: {
+		color: 'red',
+		marginBottom: 8,
+		textAlign: 'center',
+	},
 	input: {
 		backgroundColor: '#dddeee',
 		borderRadius: 12,
@@ -89,4 +112,4 @@ const styles = StyleSheet.create({
 	},
 	signInContainer: {},
 })
-export default resetPassword
+export default OTPValidation

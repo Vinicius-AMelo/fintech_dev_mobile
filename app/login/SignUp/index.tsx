@@ -6,7 +6,7 @@ import { Colors } from '@/utils/Colors/colors'
 import { useQuery } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { Link, useRouter } from 'expo-router'
-import { Lock, Mail } from 'lucide-react-native'
+import { Lock, Mail, Phone, User } from 'lucide-react-native'
 import { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -14,17 +14,22 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const signUp = () => {
 	const router = useRouter()
 
-	// const [rememberMe, setRememberMe] = useState(false)
 	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
+	const [confirmPassword, setConfirmPassword] = useState<string>('')
+	const [name, setName] = useState<string>('')
+	const [phone, setPhone] = useState<string>('')
+	const [error, setError] = useState<string>('')
 
 	const fetchUser = async () => {
 		try {
 			const response = await axios.post(
-				'https://befb-131-255-22-190.ngrok-free.app/auth',
+				'http://localhost:3000/api/users',
 				{
-					username,
+					email: username,
 					password,
+					name,
+					phone,
 				},
 				{
 					headers: {
@@ -42,27 +47,34 @@ const signUp = () => {
 	const { data: status, refetch: refetchUser } = useQuery({ queryKey: ['user'], queryFn: fetchUser, enabled: false })
 
 	const handleSignUp = () => {
-		router.push('/home')
+		if (password !== confirmPassword) {
+			setError('Passwords do not match')
+			return
+		}
+		if (!username || !password || !name) {
+			setError('Please fill in all fields')
+			return
+		}
+		refetchUser()
+		if (status === 201) {
+			router.push('/login/SignIn')
+		} else {
+			setError('Failed to sign up. Please try again.')
+		}
 	}
-
-	// useEffect(() => {
-	// 	if (status == 200) {
-	// 	} else if (status == 401) {
-	// 		setUsername('')
-	// 		setPassword('')
-	// 	}
-	// }, [status])
 
 	return (
 		<SafeAreaView style={styles.screenContainer}>
 			<View style={styles.inputContainer}>
-				<AuthHeader title="Welcome to FundFlex" subtitle="Enter your Email & Password to Sign Up" />
+				<AuthHeader title="Welcome to FundFlex" subtitle="Enter your Email, Name & Password to Sign Up" />
+				{error ? <Text style={styles.errorText}>{error}</Text> : null}
 				<AuthInput
 					icon={<Mail size={24} color={Colors.primary[400]} />}
 					value={username}
 					setValue={setUsername}
 					placeholder="Email"
 				/>
+				<AuthInput icon={<User size={24} color={Colors.primary[400]} />} value={name} setValue={setName} placeholder="Name" />
 				<AuthInput
 					icon={<Lock size={24} color={Colors.primary[400]} />}
 					password
@@ -70,13 +82,18 @@ const signUp = () => {
 					placeholder="Password"
 					value={password}
 				/>
-
 				<AuthInput
 					icon={<Lock size={24} color={Colors.primary[400]} />}
 					password
-					setValue={setPassword}
+					setValue={setConfirmPassword}
 					placeholder="Confirm password"
-					value={password}
+					value={confirmPassword}
+				/>
+				<AuthInput
+					icon={<Phone size={24} color={Colors.primary[400]} />}
+					setValue={setPhone}
+					placeholder="Confirm password"
+					value={phone}
 				/>
 
 				<View style={styles.inputOptions}>
@@ -93,8 +110,8 @@ const signUp = () => {
 					<AuthAction text="Sign Up" handleLogin={handleSignUp} />
 					<Text style={styles.signUpLabel}>
 						Already Have an Account?
-						<Link href={'/login/RecoverPassword'}>
-							<Text style={styles.signUpLinkText}> Sign Up</Text>
+						<Link href={'/login/SignIn'}>
+							<Text style={styles.signUpLinkText}> Sign In</Text>
 						</Link>
 					</Text>
 				</View>
@@ -116,7 +133,11 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		gap: 6,
 	},
-
+	errorText: {
+		color: Colors.secondary.red[600],
+		marginBottom: 8,
+		textAlign: 'center',
+	},
 	inputContainer: {
 		gap: 16,
 	},

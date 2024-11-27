@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-unused-styles */
 import AuthAction from '@/components/AuthPage/AuthAction'
 import AuthHeader from '@/components/AuthPage/AuthHeader'
 import AuthInput from '@/components/AuthPage/AuthInput'
@@ -13,16 +14,16 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const signIn = () => {
 	const router = useRouter()
 
-	// const [rememberMe, setRememberMe] = useState(false)
 	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
+	const [error, setError] = useState<string>('')
 
 	const fetchUser = async () => {
 		try {
 			const response = await axios.post(
-				'https://befb-131-255-22-190.ngrok-free.app/auth',
+				'http://localhost:3000/api/login',
 				{
-					username,
+					email: username,
 					password,
 				},
 				{
@@ -41,21 +42,23 @@ const signIn = () => {
 	const { data: status, refetch: refetchUser } = useQuery({ queryKey: ['user'], queryFn: fetchUser, enabled: false })
 
 	const handleLogin = () => {
-		router.push('/home')
+		if (!username || !password) {
+			setError('Please fill in all fields')
+			return
+		}
+		refetchUser()
+		if (status === 200) {
+			router.push('/home')
+		} else {
+			setError('Invalid email or password')
+		}
 	}
-
-	// useEffect(() => {
-	// 	if (status == 200) {
-	// 	} else if (status == 401) {
-	// 		setUsername('')
-	// 		setPassword('')
-	// 	}
-	// }, [status])
 
 	return (
 		<SafeAreaView style={styles.screenContainer}>
 			<View style={styles.inputContainer}>
 				<AuthHeader title="Welcome to FundFlex" subtitle="Enter your Email & Password to Sign in" />
+				{error ? <Text style={styles.errorText}>{error}</Text> : null}
 				<AuthInput
 					icon={<Mail size={24} color={Colors.primary[400]} />}
 					value={username}
@@ -84,7 +87,7 @@ const signIn = () => {
 					<AuthAction text="Sign in" handleLogin={handleLogin} />
 					<Text style={styles.signUpLabel}>
 						Don&apos;t Have an Account?
-						<Link href={'/login/RecoverPassword'}>
+						<Link href={'/login/SignUp'}>
 							<Text style={styles.signUpLinkText}> Sign Up</Text>
 						</Link>
 					</Text>
@@ -107,7 +110,11 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		gap: 6,
 	},
-
+	errorText: {
+		color: Colors.secondary.red[600],
+		marginBottom: 8,
+		textAlign: 'center',
+	},
 	inputContainer: {
 		gap: 16,
 	},
