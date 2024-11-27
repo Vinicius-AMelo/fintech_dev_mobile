@@ -1,7 +1,5 @@
-import { router } from 'expo-router'
+import RootLayout from './_layout'
 
-const App = () => {
-	router.push('/login')
-}
+const App = () => <RootLayout />
 
 export default App

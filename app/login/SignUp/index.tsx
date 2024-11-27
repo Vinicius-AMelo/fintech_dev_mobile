@@ -24,7 +24,7 @@ const signUp = () => {
 
 	const fetchUser = async () => {
 		try {
-			const response = await api.post('http://localhost:3000/api/users', {
+			const response = await api.post('/api/users', {
 				email: username,
 				password,
 				name,
@@ -85,7 +85,7 @@ const signUp = () => {
 				<AuthInput
 					icon={<Phone size={24} color={Colors.primary[400]} />}
 					setValue={setPhone}
-					placeholder="Confirm password"
+					placeholder="Phone"
 					value={phone}
 				/>
 

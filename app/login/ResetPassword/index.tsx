@@ -2,8 +2,9 @@ import AuthAction from '@/components/AuthPage/AuthAction'
 import AuthHeader from '@/components/AuthPage/AuthHeader'
 import AuthInput from '@/components/AuthPage/AuthInput'
 import { useAuth } from '@/services/AuthContext'
+import api from '@/utils/api/api'
 import { Colors } from '@/utils/Colors/colors'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 import { useRouter } from 'expo-router'
 import { Lock } from 'lucide-react-native'
 import { useState } from 'react'
@@ -28,7 +29,7 @@ const ResetPassword = () => {
 		}
 
 		try {
-			const response = await axios.put('http://localhost:3000/api/users/password', {
+			const response = await api.put('/api/users/password', {
 				email,
 				newPassword: password,
 			})
